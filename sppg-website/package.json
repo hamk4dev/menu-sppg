@@ -1,9 +1,0 @@
-{
-  "name": "sppg-kolaka-pomalaa",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Website informasi Makan Bergizi Gratis SPPG Kolaka Pomalaa Dawi-Dawi",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.45.4"
-  }
-}
