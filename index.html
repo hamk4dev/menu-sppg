@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPPG Kolaka Pomalaa Dawi-Dawi — Makan Bergizi Gratis</title>
+<meta name="description" content="Portal informasi Makan Bergizi Gratis SPPG Kolaka Pomalaa Dawi-Dawi — menu harian, nilai gizi, jam batas konsumsi, dan arsip menu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="progress"></div>
+<div class="pattern-bg"></div>
+<div class="vignette"></div>
+
+<!-- ==================== PUBLIC VIEW ==================== -->
+<div class="view active" id="view-public">
+  <header class="site-header">
+    <div class="header-inner">
+      <img class="brand-logo" id="logoSppg" src="assets/logo-sppg.png" alt="Logo SPPG">
+      <div class="logo-fallback" id="logoSppgFb">SPPG</div>
+      <div class="header-titles">
+        <div class="t1">BADAN GIZI NASIONAL</div>
+        <div class="t2">SATUAN PELAYANAN PEMENUHAN GIZI (SPPG)</div>
+        <div class="t3">YAYASAN PERSERIKATAN MUHAMMADIYAH</div>
+        <div class="t4">SPPG KOLAKA POMALAA DAWI-DAWI</div>
+        <div class="header-rule"></div>
+      </div>
+      <img class="brand-logo" id="logoBgn" src="assets/logo-bgn.svg" alt="Logo Badan Gizi Nasional">
+      <div class="logo-fallback" id="logoBgnFb" style="border-radius:50%">BGN</div>
+    </div>
+  </header>
+
+  <div class="marquee" role="note" aria-label="Pengumuman">
+    <div class="mq-track">
+      <span><b>✦</b> DATA MENU DI PERBARUI SETIAP HARI OLEH ADMIN SPPG <b>✮</b> LAYANAN INFORMASI MAKAN BERGIZI GRATIS <b>✮</b> DATA MENU DI PERBARUI SETIAP HARI OLEH ADMIN SPPG <b>✮</b> LAYANAN INFORMASI MAKAN BERGIZI GRATIS <b>✮</b></span>
+      <span aria-hidden="true"><b>✮</b> DATA MENU DI PERBARUI SETIAP HARI OLEH ADMIN SPPG <b>✮</b> LAYANAN INFORMASI MAKAN BERGIZI GRATIS <b>✮</b> DATA MENU DI PERBARUI SETIAP HARI OLEH ADMIN SPPG <b>✮</b> LAYANAN INFORMASI MAKAN BERGIZI GRATIS <b></b></span>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Informasi Menu &amp; Gizi <em>setiap hari.</em></h1>
+      <p class="lead">Portal informasi Makan Bergizi Gratis SPPG Kolaka Pomalaa Dawi-Dawi — menu harian, nilai gizi per porsi, jam batas konsumsi, dan arsip menu sebelumnya.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#menuSection">Lihat Menu Hari Ini</a>
+        <a class="btn btn-ghost" href="#riwayatSection">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          Lacak Menu Sebelumnya
+        </a>
+      </div>
+      <div class="hero-stats">
+        <span class="hstat"><b id="hcMenu">0</b> Komponen menu</span>
+        <span class="hstat"><b id="hcKkal">0</b> kkal porsi besar</span>
+        <span class="hstat"><b id="hcSatuan">0</b> Satuan penerima</span>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <section class="block reveal" id="menuSection">
+      <div class="sec-head">
+        <span class="num">01</span>
+        <h2>Menu Hari Ini</h2>
+        <span class="rule"></span>
+        <span class="date-chip" id="menuDateChip">—</span>
+      </div>
+      <div class="menu-grid">
+        <figure class="menu-photo" id="menuPhotoWrap">
+          <span class="badge"><i></i> FOTO MENU</span>
+          <div class="ph" id="menuPhotoPh">
+            <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.6"/><path d="M8 5l1.4-2h5.2L16 5"/>
+            </svg>
+            <div style="font-weight:700;letter-spacing:.08em;font-size:13px">FOTO MENU AKAN TAMPIL DI SINI</div>
+            <div style="font-size:11.5px;margin-top:5px;opacity:.8">Diunggah oleh admin setiap hari (JPG / PNG)</div>
+          </div>
+          <img id="menuPhotoImg" alt="Foto menu hari ini" style="display:none">
+          <span class="stamp" id="menuStamp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 12l5 5L20 7"/></svg>
+            MENU DI VERIFIKASI BGN
+          </span>
+        </figure>
+        <div class="panel acc-terra menu-card">
+          <h3>Sajian Utama Hari Ini</h3>
+          <div class="sub">Susunan menu disusun oleh ahli gizi SPPG sesuai standar Badan Gizi Nasional.</div>
+          <ol class="menu-list" id="menuList"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIZI -->
+    <section class="block reveal" id="giziSection">
+      <div class="sec-head alt1">
+        <span class="num">02</span>
+        <h2>Informasi Nilai Gizi</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="gizi-grid">
+        <div class="panel acc-sage gizi-card small">
+          <h3>Porsi Kecil <span class="pill">BALITA - TK – SD I-III</span></h3>
+          <div class="gizi-rows">
+            <div class="row"><span class="k"><i style="background:#38bdf8"></i>Energi</span><span class="dots"></span><span class="v"><em id="gKE">—</em><span>kkal</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0284c7"></i>Protein</span><span class="dots"></span><span class="v"><em id="gKP">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#075985"></i>Lemak</span><span class="dots"></span><span class="v"><em id="gKL">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0ea5e9"></i>Karbohidrat</span><span class="dots"></span><span class="v"><em id="gKK">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0369a1"></i>Serat</span><span class="dots"></span><span class="v"><em id="gKS">—</em><span>g</span></span></div>
+          </div>
+          <div class="gizi-note">Nilai per sekali sajian.</div>
+        </div>
+        <div class="panel acc-gold gizi-card big">
+          <h3>Porsi Besar <span class="pill">SD IV-VI - SMP – SMA - BUMIL - BUSUI</span></h3>
+          <div class="gizi-rows">
+            <div class="row"><span class="k"><i style="background:#38bdf8"></i>Energi</span><span class="dots"></span><span class="v"><em id="gBE">—</em><span>kkal</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0284c7"></i>Protein</span><span class="dots"></span><span class="v"><em id="gBP">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#075985"></i>Lemak</span><span class="dots"></span><span class="v"><em id="gBL">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0ea5e9"></i>Karbohidrat</span><span class="dots"></span><span class="v"><em id="gBK">—</em><span>g</span></span></div>
+            <div class="row"><span class="k"><i style="background:#0369a1"></i>Serat</span><span class="dots"></span><span class="v"><em id="gBS">—</em><span>g</span></span></div>
+          </div>
+          <div class="gizi-note">Nilai per sekali sajian.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JADWAL -->
+    <section class="block reveal" id="jadwalSection">
+      <div class="sec-head alt2">
+        <span class="num">03</span>
+        <h2>Jam Batas Konsumsi</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="panel acc-plum table-card">
+        <div class="table-scroll">
+          <table class="sched">
+            <thead>
+              <tr><th style="width:56px">No</th><th>Satuan Penerima</th><th style="width:150px">Batas Waktu</th><th>Status</th></tr>
+            </thead>
+            <tbody id="schedBody"></tbody>
+          </table>
+        </div>
+        <div class="table-foot">Segara konsumsi makanan yang didistribusikan dan tidak melewati batas waktu yang ditentukan demi keamanan pangan.</div>
+      </div>
+    </section>
+
+    <!-- RIWAYAT MENU -->
+    <section class="block reveal" id="riwayatSection">
+      <div class="sec-head alt3">
+        <span class="num">04</span>
+        <h2>Lacak Menu Sebelumnya</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="panel acc-plum riw-card">
+        <div class="riw-form">
+          <div class="riw-field">
+            <label for="riwDay">Tanggal</label>
+            <select id="riwDay"></select>
+          </div>
+          <div class="riw-field">
+            <label for="riwMonth">Bulan</label>
+            <select id="riwMonth"></select>
+          </div>
+          <div class="riw-field">
+            <label for="riwYear">Tahun</label>
+            <select id="riwYear"></select>
+          </div>
+          <button class="btn btn-cocoa" id="btnLacak" style="height:47px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+            Lacak Menu
+          </button>
+        </div>
+        <div class="riw-result" id="riwResult"></div>
+        <div class="riw-hint">Riwayat menu terarsip otomatis setiap kali admin menerbitkan menu harian.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <div class="foot-brand">
+            <img id="logoSppgFoot" src="assets/logo-sppg.png" alt="Logo SPPG">
+            <div>
+              <div class="fb-t">SPPG KOLAKA<br>POMALAA DAWI-DAWI</div>
+              <div class="fb-s">Yayasan Perserikatan Muhammadiyah</div>
+            </div>
+          </div>
+          <p style="margin-top:18px;max-width:320px">Melayani Makan Bergizi Gratis untuk sekolah dan posyandu di wilayah Kecamatan Pomalaa, Kabupaten Kolaka.</p>
+        </div>
+        <div class="foot-col">
+          <h4>SOSIAL MEDIA</h4>
+          <a class="soc" href="https://tiktok.com/@sppgpomalaa" target="_blank" rel="noopener noreferrer">
+            <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.7a5.1 5.1 0 0 1-3.7-4.2V2h-3.4v13.4a2.9 2.9 0 1 1-2-2.75V9.2a6.3 6.3 0 1 0 5.4 6.24V8.6a8.4 8.4 0 0 0 4.6 1.4V6.6c-.33 0-.66-.03-.97-.09l.03.19z"/></svg></span>
+            sppgpomalaa
+          </a>
+          <a class="soc" href="https://instagram.com/sppgklkpmldawi2" target="_blank" rel="noopener noreferrer">
+            <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.15" fill="currentColor" stroke="none"/></svg></span>
+            sppgklkpmldawi2
+          </a>
+        </div>
+        <div class="foot-col">
+          <h4>TAUTAN CEPAT</h4>
+          <a class="link" href="#menuSection">Menu Hari Ini</a>
+          <a class="link" href="#riwayatSection">Lacak Menu Sebelumnya</a>
+          <a class="link" href="#giziSection">Nilai Gizi</a>
+          <a class="link" href="#jadwalSection">Jam Batas Konsumsi</a>
+        </div>
+      </div>
+      <div class="foot-bar">
+        <span>Copyright &copy; <span id="year"></span> Website SPPG Kolaka Pomalaa Dawi-Dawi — hak cipta dilindungi undang-undang.</span>
+        <span>Dev: <span class="dev">hamk4dmin</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="btn-admin" id="btnOpenLogin">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    Login Admin
+  </button>
+</div>
+
+<!-- ==================== LOGIN VIEW ==================== -->
+<div class="view" id="view-login">
+  <div class="login-stage">
+    <div class="login-card">
+      <span class="lk">Area Khusus</span>
+      <h2>Masuk Admin</h2>
+      <div class="ls">Kelola menu harian, nilai gizi, dan jadwal konsumsi SPPG.</div>
+      <form id="loginForm" autocomplete="off">
+        <div class="field">
+          <label for="loginUser">Nama Pengguna</label>
+          <input id="loginUser" type="text" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="loginPass">Kata Sandi</label>
+          <input id="loginPass" type="password" autocomplete="current-password" required>
+        </div>
+        <button class="btn btn-gold" type="submit" id="btnLoginSubmit" style="width:100%;justify-content:center;padding:15px">Masuk ke Dashboard</button>
+        <div class="login-err" id="loginErr">Nama pengguna atau kata sandi salah.</div>
+      </form>
+      <div class="login-note">Akses terbatas untuk pengelola SPPG. Percobaan login dibatasi demi keamanan.</div>
+      <button class="btn btn-ghost" id="btnBackPublic" style="width:100%;justify-content:center;margin-top:14px">← Kembali ke Situs</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADMIN VIEW ==================== -->
+<div class="view" id="view-admin">
+  <div class="admin-top">
+    <div class="at-brand">
+      <img id="logoSppgAdmin" src="assets/logo-sppg.png" alt="Logo SPPG">
+      <div>
+        <div class="at-t">DASHBOARD ADMIN SPPG</div>
+        <div class="at-s">KOLAKA POMALAA DAWI-DAWI</div>
+      </div>
+    </div>
+    <div class="at-actions">
+      <button class="btn btn-ghost" id="btnPreview">Lihat Situs</button>
+      <button class="btn btn-gold" id="btnLogout">Keluar</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <aside class="side">
+      <div class="sd-label">NAVIGASI</div>
+      <button data-panel="dash" class="on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>Dashboard</button>
+      <button data-panel="menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Menu Harian <span class="cnt" id="cntMenu">0</span></button>
+      <button data-panel="gizi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8c0 5 3 8 7 8s7-3 7-8"/></svg>Nilai Gizi</button>
+      <button data-panel="jadwal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Jam Konsumsi <span class="cnt" id="cntSch">0</span></button>
+    </aside>
+
+    <div>
+      <!-- DASHBOARD -->
+      <div class="a-panel on" id="ap-dash">
+        <div class="a-head">
+          <h2>Selamat datang, Admin</h2>
+          <p>Ringkasan konten yang sedang tayang di halaman publik. Semua perubahan diterbitkan melalui formulir di menu sebelah kiri.</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="sv" id="stMenu">0</div><div class="sl">MENU AKTIF</div></div>
+          <div class="stat"><div class="sv" id="stEnergy">0</div><div class="sl">KKAL / PORSI BESAR</div></div>
+          <div class="stat"><div class="sv" id="stSch">0</div><div class="sl">SATUAN PENERIMA</div></div>
+          <div class="stat"><div class="sv" id="stArchive">0</div><div class="sl">RIWAYAT TERARSIP</div></div>
+        </div>
+        <div class="a-card">
+          <h3>Status Publikasi</h3>
+          <div class="cs">Terakhir diperbarui: <strong id="stUpdated">—</strong></div>
+          <p style="font-size:13.5px;line-height:1.8;color:var(--ink-soft)">Data menu dan nilai gizi disimpan di database Supabase, foto tersimpan di Cloudinary (resolusi asli), dan situs dihosting di Vercel. Setiap tanggal yang diterbitkan otomatis menjadi arsip pada fitur <strong>Lacak Menu Sebelumnya</strong> di situs publik.</p>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <div class="a-panel" id="ap-menu">
+        <div class="a-head"><h2>Menu Harian</h2><p>Atur tanggal, foto sajian, dan daftar menu. Publikasi otomatis mengarsipkan menu ke fitur pelacakan riwayat.</p></div>
+        <div class="a-card">
+          <h3>Tanggal &amp; Foto Menu</h3>
+          <div class="cs">Tanggal menjadi kunci arsip pada fitur "Lacak Menu Sebelumnya".</div>
+          <div class="f-grid">
+            <div class="field"><label for="adDate">Tanggal Menu</label><input type="date" id="adDate" required></div>
+            <div class="field"><label for="adCycle">Siklus Menu (opsional)</label><input type="text" id="adCycle" placeholder="mis. A-12" maxlength="30"></div>
+          </div>
+          <input type="file" id="adPhoto" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="up-zone" id="upZone" role="button" tabindex="0">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#075985" stroke-width="1.6" stroke-linecap="round"><path d="M12 16V5m0 0l-4 4m4-4l4 4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <div class="uz-t">Klik untuk unggah foto menu</div>
+            <div class="uz-s">Format JPG / PNG / WebP &nbsp;•&nbsp; Maks. <span id="maxMbLabel">10</span> MB &nbsp;•&nbsp; Disimpan resolusi asli</div>
+          </div>
+          <div class="up-preview" id="upPreview"><img id="upPreviewImg" alt="Pratinjau foto"></div>
+        </div>
+        <div class="a-card">
+          <h3>Daftar Menu</h3>
+          <div class="cs">Tambah atau hapus komponen menu hari ini.</div>
+          <div id="menuEditList"></div>
+          <button class="add-row" id="btnAddMenu" type="button">+ Tambah Menu</button>
+        </div>
+        <button class="btn btn-gold" id="saveMenu" type="button">Simpan &amp; Terbitkan Menu</button>
+      </div>
+
+      <!-- GIZI -->
+      <div class="a-panel" id="ap-gizi">
+        <div class="a-head"><h2>Nilai Gizi</h2><p>Masukkan nilai gizi per porsi yang dianalisis oleh ahli gizi. Satuan otomatis (kkal / gram).</p></div>
+        <div class="a-card">
+          <h3>Porsi Kecil</h3>
+          <div class="f-grid">
+            <div class="field"><label for="gkE">Energi (kkal)</label><input type="number" step="0.1" min="0" id="gkE"></div>
+            <div class="field"><label for="gkP">Protein (g)</label><input type="number" step="0.1" min="0" id="gkP"></div>
+            <div class="field"><label for="gkL">Lemak (g)</label><input type="number" step="0.1" min="0" id="gkL"></div>
+            <div class="field"><label for="gkK">Karbohidrat (g)</label><input type="number" step="0.1" min="0" id="gkK"></div>
+            <div class="field"><label for="gkS">Serat (g)</label><input type="number" step="0.1" min="0" id="gkS"></div>
+          </div>
+        </div>
+        <div class="a-card">
+          <h3>Porsi Besar</h3>
+          <div class="f-grid">
+            <div class="field"><label for="gbE">Energi (kkal)</label><input type="number" step="0.1" min="0" id="gbE"></div>
+            <div class="field"><label for="gbP">Protein (g)</label><input type="number" step="0.1" min="0" id="gbP"></div>
+            <div class="field"><label for="gbL">Lemak (g)</label><input type="number" step="0.1" min="0" id="gbL"></div>
+            <div class="field"><label for="gbK">Karbohidrat (g)</label><input type="number" step="0.1" min="0" id="gbK"></div>
+            <div class="field"><label for="gbS">Serat (g)</label><input type="number" step="0.1" min="0" id="gbS"></div>
+          </div>
+        </div>
+        <button class="btn btn-gold" id="saveGizi" type="button">Simpan &amp; Terbitkan Nilai Gizi</button>
+        <p style="font-size:12px;color:var(--ink-soft);margin-top:12px">Nilai gizi diterapkan pada tanggal menu yang aktif di panel Menu Harian.</p>
+      </div>
+
+      <!-- JADWAL -->
+      <div class="a-panel" id="ap-jadwal">
+        <div class="a-head"><h2>Jam Batas Konsumsi</h2><p>Kelola daftar satuan penerima dan batas waktu konsumsi. Perubahan langsung tercermin pada tabel publik.</p></div>
+        <div class="a-card">
+          <table class="edit">
+            <thead><tr><th style="width:44px">No</th><th>Satuan Penerima</th><th style="width:150px">Batas Waktu</th><th style="width:52px"></th></tr></thead>
+            <tbody id="schedEdit"></tbody>
+          </table>
+          <button class="add-row" id="btnAddSch" type="button" style="margin-top:14px">+ Tambah Satuan</button>
+        </div>
+        <button class="btn btn-gold" id="saveJadwal" type="button">Simpan &amp; Terbitkan Jadwal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8fd6a2" stroke-width="2.6" stroke-linecap="round"><path d="M4 12l5 5L20 7"/></svg><span id="toastMsg">Tersimpan</span></div>
+
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
