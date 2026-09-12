@@ -60,7 +60,7 @@
   function renderPublic(menu){
     $('menuDateChip').textContent = 'MENU HARI INI, ' + fmtDate(menu ? menu.date : todayISO());
 
-    // foto
+    // foto — disajikan versi optimal via Cloudinary, file asli tetap utuh
     if(menu && menu.photo_url){
       $('menuPhotoImg').src = window.cloudinaryDisplay(menu.photo_url, 1400);
       $('menuPhotoImg').style.display = 'block';
@@ -72,7 +72,6 @@
     }
 
     // Stempel BGN hanya tampil kalau menu benar-benar terbit
-    // (punya foto + daftar menu). Jika tidak, sembunyikan agar tidak menyesatkan.
     const stampEl = $('menuStamp');
     const hasMenu = !!(menu && menu.photo_url && Array.isArray(menu.menus) && menu.menus.length);
     stampEl.style.display = hasMenu ? 'inline-flex' : 'none';
@@ -257,6 +256,7 @@
         ul.appendChild(li);
       });
       box.appendChild(head); box.appendChild(ul);
+
       if(found.photo_url){
         const wrap = document.createElement('div');
         wrap.className = 'riw-photo';
@@ -267,6 +267,54 @@
         wrap.appendChild(img);
         box.appendChild(wrap);
       }
+
+      // ----- Nilai gizi pada riwayat (F2.1) -----
+      const gk = found.gizi_kecil || {};
+      const gb = found.gizi_besar || {};
+      const hasGizi = [gk, gb].some(g => ['e','p','l','k','s'].some(k => g[k] != null));
+
+      if(hasGizi){
+        const wrap = document.createElement('div');
+        wrap.className = 'riw-gizi';
+
+        const mkCard = (title, pill, g, cls) => {
+          const card = document.createElement('div');
+          card.className = 'riw-gizi-card ' + cls;
+
+          const h = document.createElement('h5');
+          h.appendChild(document.createTextNode(title));
+          const p = document.createElement('span');
+          p.className = 'riw-pill';
+          p.textContent = pill;
+          h.appendChild(p);
+          card.appendChild(h);
+
+          const rows = [
+            ['Energi', g.e, 'kkal'], ['Protein', g.p, 'g'], ['Lemak', g.l, 'g'],
+            ['Karbohidrat', g.k, 'g'], ['Serat', g.s, 'g']
+          ];
+          rows.forEach(([label, val, unit]) => {
+            const row = document.createElement('div');
+            row.className = 'riw-gizi-row';
+            const k = document.createElement('span'); k.className = 'k'; k.textContent = label;
+            const dots = document.createElement('span'); dots.className = 'dots';
+            const v = document.createElement('span'); v.className = 'v';
+            v.textContent = val != null ? fmtNum(val) : '—';
+            const u = document.createElement('span'); u.className = 'u'; u.textContent = unit;
+            row.append(k, dots, v, u);
+            card.appendChild(row);
+          });
+          return card;
+        };
+
+        const grid = document.createElement('div');
+        grid.className = 'riw-gizi-grid';
+        grid.appendChild(mkCard('Porsi Kecil', 'TK – SD I-III', gk, 'small'));
+        grid.appendChild(mkCard('Porsi Besar', 'SD IV-VI – SMP – SMA – BUMIL', gb, 'big'));
+        wrap.appendChild(grid);
+        box.appendChild(wrap);
+      }
+
       res.appendChild(box);
     }catch(e){
       toast('Tidak dapat terhubung ke server.');
