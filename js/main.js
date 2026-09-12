@@ -62,7 +62,7 @@
 
     // foto
     if(menu && menu.photo_url){
-      $('menuPhotoImg').src = menu.photo_url;
+      $('menuPhotoImg').src = window.cloudinaryDisplay(menu.photo_url, 1400);
       $('menuPhotoImg').style.display = 'block';
       $('menuPhotoPh').style.display = 'none';
     }else{
@@ -261,7 +261,7 @@
         const wrap = document.createElement('div');
         wrap.className = 'riw-photo';
         const img = document.createElement('img');
-        img.src = found.photo_url;
+        img.src = window.cloudinaryDisplay(found.photo_url, 900);
         img.alt = 'Foto menu ' + fmtDate(key);
         img.loading = 'lazy';
         wrap.appendChild(img);
