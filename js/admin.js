@@ -337,4 +337,37 @@
       $('ap-' + b.dataset.panel).classList.add('on');
     };
   });
+
+  /* ==================== HAPUS: MENU TANGGAL ==================== */
+  $('deleteMenu').onclick = async ()=>{
+    const date = $('adDate').value;
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){
+      window.toast('Tanggal menu tidak valid.');
+      return;
+    }
+
+    const ok = window.confirm(
+      'Hapus SELURUH data tanggal ' + date + '?\n\n' +
+      'Yang terhapus: daftar menu, nilai gizi, dan foto di Cloudinary.\n' +
+      'Tindakan ini tidak dapat dibatalkan.'
+    );
+    if(!ok) return;
+
+    const btn = $('deleteMenu');
+    const old = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Menghapus…';
+    try{
+      const out = await apiPost('/api/delete-menu', { date });
+      if(!out.ok) throw new Error(out.msg || 'Gagal menghapus.');
+      window.toast('Menu tanggal tersebut berhasil dihapus.');
+      await window.openAdmin();       // segarkan dashboard
+      await window.loadPublic();      // segarkan situs publik
+    }catch(err){
+      if(err.message !== 'unauthorized') window.toast(err.message || 'Gagal menghapus.');
+    }finally{
+      btn.disabled = false;
+      btn.innerHTML = old;
+    }
+  };
 })();
