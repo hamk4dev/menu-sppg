@@ -9,6 +9,16 @@
   const $ = id => document.getElementById(id);
   const token = () => sessionStorage.getItem('sppg_token');
 
+  // Waktu Indonesia Tengah (UTC+8) — sinkron dengan main.js
+  function witaNow(){
+    const n = new Date();
+    return new Date(n.getTime() + (n.getTimezoneOffset() + 480) * 60000);
+  }
+  function isoDate(d){
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+  const todayISO = () => isoDate(witaNow());
+
   let CURRENT_MENU = null;   // menu terbaru yang dimuat
   let SCHEDULES = [];        // jadwal terbaru
   let ARCHIVE = [];          // daftar tanggal terarsip
@@ -42,7 +52,7 @@
     window.show('view-admin');
     try{
       const [m, d] = await Promise.all([
-        fetch('/api/get-menu?date=' + new Date().toISOString().slice(0,10)).then(r=>r.json()),
+        fetch('/api/get-menu?date=' + todayISO()).then(r=>r.json()),
         fetch('/api/list-dates').then(r=>r.json())
       ]);
       CURRENT_MENU = (m && m.menu) || null;
@@ -57,7 +67,7 @@
   /* ==================== ISI FORM ADMIN ==================== */
   function fillAdmin(){
     const menu = CURRENT_MENU;
-    $('adDate').value = (menu && menu.date) || new Date().toISOString().slice(0,10);
+    $('adDate').value = (menu && menu.date) || todayISO();
     $('adCycle').value = (menu && menu.cycle) || '';
 
     // foto: tampilkan yang tersimpan, reset foto baru
