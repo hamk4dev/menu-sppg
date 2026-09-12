@@ -71,6 +71,12 @@
       $('menuPhotoPh').style.display = 'block';
     }
 
+    // Stempel BGN hanya tampil kalau menu benar-benar terbit
+    // (punya foto + daftar menu). Jika tidak, sembunyikan agar tidak menyesatkan.
+    const stampEl = $('menuStamp');
+    const hasMenu = !!(menu && menu.photo_url && Array.isArray(menu.menus) && menu.menus.length);
+    stampEl.style.display = hasMenu ? 'inline-flex' : 'none';
+
     // daftar menu
     const ol = $('menuList');
     ol.innerHTML = '';
