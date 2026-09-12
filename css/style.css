@@ -45,7 +45,7 @@ body{
 
 .pattern-bg{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('../assets/pattern.png') repeat;
+  background:url('https://bgnlampung.com/decoration/PATTERN4.png') repeat;
   background-size:430px;opacity:.05;mix-blend-mode:multiply;
 }
 .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
@@ -357,3 +357,23 @@ table.edit input:focus{border-color:var(--sky)}
   table.sched td.m-name{font-size:15px;font-weight:800}
   table.sched td.m-right{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:10px}
 }
+
+/* ============================================================
+   F2.5 — Kartu gizi pada riwayat menu
+   ============================================================ */
+.riw-gizi{margin-top:18px}
+.riw-gizi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.riw-gizi-grid{grid-template-columns:1fr}}
+.riw-gizi-card{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fff}
+.riw-gizi-card.small{background:linear-gradient(180deg,#f4f9f4,#eef5ee)}
+.riw-gizi-card.big{background:linear-gradient(180deg,#eef6fd,#e6f1fb)}
+.riw-gizi-card h5{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:10px;color:var(--ink)}
+.riw-pill{font-family:var(--font-body);font-size:9px;font-weight:800;letter-spacing:.1em;
+  padding:4px 9px;border-radius:100px;background:rgba(15,36,60,.06);color:var(--ink-soft);white-space:nowrap}
+.riw-gizi-row{display:flex;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line-soft)}
+.riw-gizi-row:last-child{border:none}
+.riw-gizi-row .k{font-size:12.5px;font-weight:700;color:var(--ink-soft);min-width:90px}
+.riw-gizi-row .dots{flex:1;border-bottom:2px dotted rgba(15,36,60,.22);transform:translateY(-4px)}
+.riw-gizi-row .v{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--sky-deep);font-variant-numeric:tabular-nums}
+.riw-gizi-row .u{font-size:10.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.04em}
