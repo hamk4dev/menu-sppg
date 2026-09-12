@@ -393,3 +393,70 @@ table.edit input:focus{border-color:var(--sky)}
 @media (max-width:640px){
   .btn-row .btn{width:100%;justify-content:center}
 }
+
+/* ============================================================
+   Fase 3 — Langkah 1: Kartu "Daftar Menu" (input + tombol tambah)
+   ============================================================ */
+
+/* --- Input baris menu --- */
+.menu-edit-row{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+  align-items:stretch;
+}
+.menu-edit-row input{
+  flex:1;
+  min-width:0;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  padding:13px 15px 13px 42px;
+  font:600 14px var(--font-body);
+  color:var(--ink);
+  outline:none;
+  transition:border-color .2s, box-shadow .2s, background-color .2s;
+  /* Ikon list di sebelah kiri input */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235c7590' stroke-width='2' stroke-linecap='round'><path d='M4 6h16M4 12h16M4 18h10'/></svg>");
+  background-repeat:no-repeat;
+  background-position:14px 50%;
+  background-size:15px;
+}
+.menu-edit-row input::placeholder{color:#94a8bd}
+.menu-edit-row input:focus{
+  border-color:var(--sky);
+  box-shadow:0 0 0 4px rgba(2,132,199,.12);
+  background-color:#fbfdff;
+}
+.menu-edit-row .icon-btn{width:46px}
+
+/* --- Tombol "+ Tambah Menu" --- */
+.add-row{
+  width:100%;
+  border:1.5px dashed rgba(2,132,199,.4);
+  background:rgba(2,132,199,.04);
+  border-radius:12px;
+  padding:13px;
+  font:700 13px var(--font-body);
+  color:var(--sky-deep);
+  cursor:pointer;
+  letter-spacing:.05em;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:background .2s, border-color .2s, transform .15s;
+}
+.add-row:hover{
+  background:rgba(2,132,199,.1);
+  border-color:var(--sky);
+}
+.add-row:active{transform:scale(.99)}
+
+/* Responsif — di HP padding input sedikit dikurangi */
+@media (max-width:640px){
+  .menu-edit-row input{
+    padding-left:38px;
+    background-position:12px 50%;
+  }
+    }
