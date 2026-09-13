@@ -568,3 +568,162 @@ table.edit input:focus{border-color:var(--sky)}
   .clock-time{gap:4px}
   .clock-date{font-size:12px;letter-spacing:.06em}
 }
+
+/* ============================================================
+   Lightbox Foto Menu — Klik foto untuk lihat ukuran penuh
+   ============================================================ */
+
+/* Kursor & label pemicu hanya saat ada foto */
+.menu-photo.has-photo{cursor:zoom-in}
+.menu-photo.has-photo::after{
+  content:"🔍 Klik untuk perbesar";
+  position:absolute;
+  bottom:16px;left:16px;
+  z-index:3;
+  background:rgba(8,30,54,.85);
+  backdrop-filter:blur(6px);
+  color:#7dd3fc;
+  font:700 10.5px var(--font-body);
+  letter-spacing:.12em;
+  padding:8px 12px;
+  border-radius:100px;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity .25s, transform .25s;
+  pointer-events:none;
+}
+.menu-photo.has-photo:hover::after,
+.menu-photo.has-photo:focus-within::after{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Overlay lightbox */
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(8,20,38,.94);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:24px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.lightbox.on{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Panggung foto */
+.lb-stage{
+  max-width:100%;
+  max-height:calc(100vh - 120px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+  scrollbar-width:thin;
+}
+.lb-stage img{
+  max-width:100%;
+  max-height:calc(100vh - 120px);
+  object-fit:contain;      /* ← di lightbox, foto SELALU utuh */
+  border-radius:12px;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,.7);
+  transform:scale(.96);
+  transition:transform .35s cubic-bezier(.2,.9,.3,1.15);
+}
+.lightbox.on .lb-stage img{transform:scale(1)}
+
+/* Tombol tutup */
+.lb-close{
+  position:absolute;
+  top:20px;right:20px;
+  width:44px;height:44px;
+  border-radius:50%;
+  border:1px solid rgba(216,230,246,.3);
+  background:rgba(255,255,255,.08);
+  color:#e5effb;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s, transform .2s, border-color .2s;
+}
+.lb-close:hover{
+  background:rgba(255,255,255,.18);
+  border-color:var(--azure);
+  transform:rotate(90deg);
+}
+
+/* Petunjuk bawah */
+.lb-hint{
+  margin-top:16px;
+  font:600 11.5px var(--font-body);
+  letter-spacing:.08em;
+  color:rgba(216,230,246,.7);
+  text-align:center;
+}
+
+@media (max-width:640px){
+  .lb-close{top:14px;right:14px;width:40px;height:40px}
+  .lb-hint{font-size:10.5px}
+}
+
+/* ============================================================
+   Maskot panda & beruang di halaman login
+   ============================================================ */
+.ls-mascot{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin:6px 0 22px;
+  height:64px;
+}
+.ls-mascot .mascot{
+  display:inline-block;
+  font-size:52px;
+  line-height:1;
+  /* Emoji lebih hidup dengan drop shadow lembut */
+  filter:drop-shadow(0 6px 10px rgba(10,37,66,.18));
+  /* Animasi goyang lucu */
+  transform-origin:bottom center;
+  animation:mascotBounce 2.6s ease-in-out infinite;
+}
+/* Beri delay berbeda supaya tidak goyang bersamaan */
+.ls-mascot .mascot:nth-child(2){
+  animation-delay:-1.3s;
+}
+
+@keyframes mascotBounce{
+  0%, 100%{
+    transform:translateY(0) rotate(-3deg) scale(1);
+  }
+  50%{
+    transform:translateY(-6px) rotate(3deg) scale(1.06);
+  }
+}
+
+/* Efek hover — kalau user arahkan kursor, makin lucu */
+.ls-mascot:hover .mascot{
+  animation-play-state:paused;
+  transform:scale(1.15) rotate(0);
+  transition:transform .3s cubic-bezier(.3,1.6,.5,1.2);
+}
+
+/* Hormati preferensi user yang tidak suka animasi */
+@media (prefers-reduced-motion: reduce){
+  .ls-mascot .mascot{animation:none}
+}
+
+/* Sedikit lebih kecil di HP */
+@media (max-width:640px){
+  .ls-mascot{height:56px}
+  .ls-mascot .mascot{font-size:44px}
+}
