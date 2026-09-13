@@ -70,6 +70,8 @@
       $('menuPhotoImg').removeAttribute('src');
       $('menuPhotoPh').style.display = 'block';
     }
+    // Tandai wrapper → aktifkan cursor zoom + label "klik untuk perbesar"
+    $('menuPhotoWrap').classList.toggle('has-photo', !!(menu && menu.photo_url));
 
     // Stempel BGN hanya tampil kalau menu benar-benar terbit
     const stampEl = $('menuStamp');
@@ -369,24 +371,63 @@
   logoFallback('logoSppgAdmin', null);
 
   /* ==================== JAM DIGITAL WITA ==================== */
-function renderClock(){
-  const now = witaNow();
-  const pad = n => String(n).padStart(2, '0');
+  function renderClock(){
+    const now = witaNow();
+    const pad = n => String(n).padStart(2, '0');
 
-  $('ctH').textContent = pad(now.getHours());
-  $('ctM').textContent = pad(now.getMinutes());
-  $('ctS').textContent = pad(now.getSeconds());
+    $('ctH').textContent = pad(now.getHours());
+    $('ctM').textContent = pad(now.getMinutes());
+    $('ctS').textContent = pad(now.getSeconds());
 
-  const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-  const bln = ['Januari','Februari','Maret','April','Mei','Juni',
-               'Juli','Agustus','September','Oktober','November','Desember'];
-  $('ctDate').textContent =
-    hari[now.getDay()] + ', ' + now.getDate() + ' ' +
-    bln[now.getMonth()] + ' ' + now.getFullYear();
-}
-renderClock();
-setInterval(renderClock, 1000);
-  
+    const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const bln = ['Januari','Februari','Maret','April','Mei','Juni',
+                 'Juli','Agustus','September','Oktober','November','Desember'];
+    $('ctDate').textContent =
+      hari[now.getDay()] + ', ' + now.getDate() + ' ' +
+      bln[now.getMonth()] + ' ' + now.getFullYear();
+  }
+  renderClock();
+  setInterval(renderClock, 1000);
+
+  /* ==================== LIGHTBOX FOTO MENU ==================== */
+  const lightbox   = $('lightbox');
+  const lbImg      = $('lbImg');
+  const lbClose    = $('lbClose');
+  const photoWrap  = $('menuPhotoWrap');
+
+  function openLightbox(src){
+    if(!src) return;
+    lbImg.src = src;
+    lightbox.classList.add('on');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('on');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(()=>{ lbImg.removeAttribute('src'); }, 320);
+  }
+
+  photoWrap.addEventListener('click', ()=>{
+    if(photoWrap.classList.contains('has-photo')){
+      const src = $('menuPhotoImg').src;
+      if(src) openLightbox(src);
+    }
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+
+  // Klik di luar foto (area gelap) → tutup
+  lightbox.addEventListener('click', e=>{
+    if(e.target === lightbox) closeLightbox();
+  });
+
+  // Tombol Escape → tutup
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && lightbox.classList.contains('on')) closeLightbox();
+  });
+
   /* ==================== MISC ==================== */
   setInterval(renderSchedPublic, 60000);
   $('year').textContent = new Date().getFullYear();
