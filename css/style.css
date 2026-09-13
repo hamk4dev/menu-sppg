@@ -460,3 +460,111 @@ table.edit input:focus{border-color:var(--sky)}
     background-position:12px 50%;
   }
     }
+
+/* ============================================================
+   Jam digital WITA (section Jadwal)
+   ============================================================ */
+.clock-card{
+  background:linear-gradient(135deg,#0b2545 0%,#123c66 55%,#0b2545 100%);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:28px 32px 24px;
+  text-align:center;
+  margin-bottom:26px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(56,189,248,.25);
+}
+/* Cahaya lembut di sudut kanan atas */
+.clock-card::before{
+  content:"";
+  position:absolute;
+  top:-60px;right:-60px;
+  width:220px;height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(56,189,248,.28), transparent 70%);
+  pointer-events:none;
+}
+/* Garis aksen bawah */
+.clock-card::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--azure),var(--sky),var(--azure));
+  opacity:.7;
+}
+
+.clock-label{
+  font:800 10.5px var(--font-body);
+  letter-spacing:.24em;
+  color:var(--azure-soft);
+  text-transform:uppercase;
+  margin-bottom:14px;
+  position:relative;
+  z-index:1;
+}
+
+.clock-time{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(48px,9vw,80px);
+  line-height:1;
+  color:#e8f6ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 0 32px rgba(56,189,248,.4), 0 4px 12px rgba(0,0,0,.35);
+  position:relative;
+  z-index:1;
+}
+.clock-time .ct-h,
+.clock-time .ct-m{
+  color:#e8f6ff;
+}
+.clock-time .ct-s{
+  color:var(--azure);
+  font-size:.7em;
+  margin-left:4px;
+}
+
+/* Denyut titik dua */
+.clock-time .ct-colon{
+  animation:colonBlink 1s steps(1,end) infinite;
+  color:var(--azure);
+  opacity:1;
+}
+@keyframes colonBlink{
+  0%,49%{opacity:1}
+  50%,100%{opacity:.18}
+}
+
+/* Denyut halus detik */
+.clock-time .ct-s{
+  animation:secPulse 1s ease-in-out infinite;
+}
+@keyframes secPulse{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.08);opacity:.92}
+  100%{transform:scale(1);opacity:1}
+}
+
+.clock-date{
+  font:600 13px var(--font-body);
+  letter-spacing:.08em;
+  color:var(--azure-soft);
+  margin-top:16px;
+  opacity:.85;
+  position:relative;
+  z-index:1;
+}
+
+/* Responsif */
+@media (max-width:640px){
+  .clock-card{padding:22px 20px 20px;margin-bottom:20px}
+  .clock-time{gap:4px}
+  .clock-date{font-size:12px;letter-spacing:.06em}
+}
