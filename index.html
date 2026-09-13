@@ -36,6 +36,7 @@
 
   <div class="marquee" role="note" aria-label="Pengumuman">
     <div class="mq-track">
+      <span><b>✮</b> SELAMAT DATANG DI PORTAL LAYANAN INFORMASI KAMI <b>✮</b> JADWAL DISTRIBUSI BERLAKU HARI SENIN S.D. JUM'AT <b>✮</b> SELAMAT DATANG DI PORTAL LAYANAN INFORMASI KAMI <b>✮</b> JADWAL DISTRIBUSI BERLAKU HARI SENIN S.D. JUM'AT</span>
       <span aria-hidden="true"><b>✮</b> SELAMAT DATANG DI PORTAL LAYANAN INFORMASI KAMI <b>✮</b> JADWAL DISTRIBUSI BERLAKU HARI SENIN S.D. JUM'AT <b>✮</b> SELAMAT DATANG DI PORTAL LAYANAN INFORMASI KAMI <b>✮</b> JADWAL DISTRIBUSI BERLAKU HARI SENIN S.D. JUM'AT</span>
     </div>
   </div>
@@ -129,18 +130,20 @@
         <span class="num">03</span>
         <h2>Jam Batas Konsumsi</h2>
         <span class="rule"></span>
-      </div>      
+      </div>
+
       <div class="clock-card reveal">
-    <div class="clock-label">Waktu Indonesia Tengah (WITA)</div>
-    <div class="clock-time">
-      <span class="ct-h" id="ctH">--</span>
-      <span class="ct-colon">:</span>
-      <span class="ct-m" id="ctM">--</span>
-      <span class="ct-colon">:</span>
-      <span class="ct-s" id="ctS">--</span>
-    </div>
-    <div class="clock-date" id="ctDate">—</div>
-      </div>   
+        <div class="clock-label">Waktu Indonesia Tengah (WITA)</div>
+        <div class="clock-time">
+          <span class="ct-h" id="ctH">--</span>
+          <span class="ct-colon">:</span>
+          <span class="ct-m" id="ctM">--</span>
+          <span class="ct-colon">:</span>
+          <span class="ct-s" id="ctS">--</span>
+        </div>
+        <div class="clock-date" id="ctDate">—</div>
+      </div>
+
       <div class="panel acc-plum table-card">
         <div class="table-scroll">
           <table class="sched">
@@ -237,7 +240,10 @@
     <div class="login-card">
       <span class="lk">Area Khusus</span>
       <h2>Masuk Admin</h2>
-      <div class="ls">🐻🐼</div>
+      <div class="ls-mascot" aria-hidden="true">
+        <span class="mascot">🐻</span>
+        <span class="mascot">🐼</span>
+      </div>
       <form id="loginForm" autocomplete="off">
         <div class="field">
           <label for="loginUser">Nama Pengguna</label>
@@ -319,21 +325,21 @@
           </div>
           <div class="up-preview" id="upPreview"><img id="upPreviewImg" alt="Pratinjau foto"></div>
         </div>
-          <div class="a-card">
-    <h3>Daftar Menu</h3>
-    <div class="cs">Tambah atau hapus komponen menu hari ini.</div>
-    <div id="menuEditList"></div>
-    <button class="add-row" id="btnAddMenu" type="button">+ Tambah Menu</button>
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-gold" id="saveMenu" type="button">Simpan &amp; Terbitkan Menu</button>
-    <button class="btn btn-danger" id="deleteMenu" type="button">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg>
-      Hapus Menu Tanggal Ini
-    </button>
-  </div>
+        <div class="a-card">
+          <h3>Daftar Menu</h3>
+          <div class="cs">Tambah atau hapus komponen menu hari ini.</div>
+          <div id="menuEditList"></div>
+          <button class="add-row" id="btnAddMenu" type="button">+ Tambah Menu</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-gold" id="saveMenu" type="button">Simpan &amp; Terbitkan Menu</button>
+          <button class="btn btn-danger" id="deleteMenu" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg>
+            Hapus Menu Tanggal Ini
+          </button>
+        </div>
       </div>
-      
+
       <!-- GIZI -->
       <div class="a-panel" id="ap-gizi">
         <div class="a-head"><h2>Nilai Gizi</h2><p>Masukkan nilai gizi per porsi yang dianalisis oleh ahli gizi. Satuan otomatis (kkal / gram).</p></div>
@@ -378,6 +384,17 @@
 </div>
 
 <div class="toast" id="toast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8fd6a2" stroke-width="2.6" stroke-linecap="round"><path d="M4 12l5 5L20 7"/></svg><span id="toastMsg">Tersimpan</span></div>
+
+<!-- ==================== LIGHTBOX FOTO MENU ==================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Foto menu diperbesar">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Tutup">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="lb-stage">
+    <img id="lbImg" alt="Foto menu diperbesar">
+  </div>
+  <div class="lb-hint">Pinch / scroll untuk zoom &nbsp;•&nbsp; Esc atau klik luar untuk menutup</div>
+</div>
 
 <script src="js/config.js"></script>
 <script src="js/admin.js"></script>
