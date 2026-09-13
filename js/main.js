@@ -368,6 +368,25 @@
   logoFallback('logoSppgFoot', null);
   logoFallback('logoSppgAdmin', null);
 
+  /* ==================== JAM DIGITAL WITA ==================== */
+function renderClock(){
+  const now = witaNow();
+  const pad = n => String(n).padStart(2, '0');
+
+  $('ctH').textContent = pad(now.getHours());
+  $('ctM').textContent = pad(now.getMinutes());
+  $('ctS').textContent = pad(now.getSeconds());
+
+  const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const bln = ['Januari','Februari','Maret','April','Mei','Juni',
+               'Juli','Agustus','September','Oktober','November','Desember'];
+  $('ctDate').textContent =
+    hari[now.getDay()] + ', ' + now.getDate() + ' ' +
+    bln[now.getMonth()] + ' ' + now.getFullYear();
+}
+renderClock();
+setInterval(renderClock, 1000);
+  
   /* ==================== MISC ==================== */
   setInterval(renderSchedPublic, 60000);
   $('year').textContent = new Date().getFullYear();
