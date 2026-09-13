@@ -120,15 +120,34 @@
   function jenjangClass(j){
     return {TK:'j-tk', SD:'j-sd', SMP:'j-smp', SMA:'j-sma', POSYANDU:'j-pos'}[j] || 'j-tk';
   }
-  function statusFor(timeStr){
-    const tStr = String(timeStr || '23:59').slice(0,5);
+
+  /* ------------------------------------------------------------------
+   * Status tabel = kombinasi JAM DISTRIBUSI (per jenjang, dari config)
+   * dan JAM BATAS (dari database):
+   *   sebelum distribusi         → MENUNGGU
+   *   distribusi s.d. batas      → SEDANG BERLANGSUNG
+   *   setelah batas              → SELESAI
+   * ------------------------------------------------------------------ */
+  function statusFor(batasStr, jenjang){
     const now = witaNow();
-    const [h,m] = tStr.split(':').map(Number);
-    const t = h*60 + m, n = now.getHours()*60 + now.getMinutes();
-    if(n < t) return {cls:'st-wait', txt:'MENUNGGU'};
-    if(n <= t + 45) return {cls:'st-live', txt:'SEDANG BERLANGSUNG'};
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+
+    // Batas konsumsi dari DB (fallback: 23:59 kalau kosong)
+    const bStr = String(batasStr || '23:59').slice(0, 5);
+    const [bh, bm] = bStr.split(':').map(Number);
+    const batasMin = (bh * 60) + bm;
+
+    // Distribusi dari config, key = jenjang (fallback: 07:00)
+    const map = (window.SPPG_CONFIG && window.SPPG_CONFIG.DISTRIBUSI_PER_JENJANG) || {};
+    const dStr = map[jenjang] || '07:00';
+    const [dh, dm] = dStr.split(':').map(Number);
+    const distMin = (dh * 60) + dm;
+
+    if(nowMin < distMin)  return {cls:'st-wait', txt:'MENUNGGU'};
+    if(nowMin < batasMin) return {cls:'st-live', txt:'SEDANG BERLANGSUNG'};
     return {cls:'st-done', txt:'SELESAI'};
   }
+
   function renderSchedPublic(){
     const tb = $('schedBody');
     tb.innerHTML = '';
@@ -144,7 +163,7 @@
       return;
     }
     SCHEDULES.forEach((s,i)=>{
-      const st = statusFor(s.time);
+      const st = statusFor(s.time, s.jenjang);
       const tr = document.createElement('tr');
       const tdNo = document.createElement('td');
       tdNo.className = 'sched-no';
