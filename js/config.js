@@ -13,7 +13,26 @@ window.SPPG_CONFIG = {
 
   // Lebar tampilan default (px) saat foto disajikan ke pengunjung.
   // File ASLI tetap tersimpan di Cloudinary tanpa diubah.
-  PHOTO_THUMB_WIDTH: 1400
+  PHOTO_THUMB_WIDTH: 1400,
+
+  /* --------------------------------------------------------
+   * Waktu DISTRIBUSI per jenjang (format HH:MM, zona WITA).
+   *
+   * Dipakai untuk menentukan status di tabel publik:
+   *   Jam sekarang <  distribusi        → MENUNGGU
+   *   distribusi ≤ jam sekarang < batas → SEDANG BERLANGSUNG
+   *   jam sekarang ≥ batas              → SELESAI
+   *
+   * Jam "batas" berasal dari database (kolom time di tabel schedules).
+   * Kalau ada perubahan jadwal distribusi, cukup edit di sini.
+   * -------------------------------------------------------- */
+  DISTRIBUSI_PER_JENJANG: {
+    'TK':       '07:30',
+    'SD':       '09:00',
+    'SMP':      '09:30',
+    'SMA':      '10:30',
+    'POSYANDU': '11:30'
+  }
 };
 
 /* ------------------------------------------------------------
